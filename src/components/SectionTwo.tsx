@@ -213,7 +213,7 @@ const SectionTwo: React.FC = () => {
               Contact Us
             </button>
           </div>
-          <div className="gap-y-[11px] w-full  flex flex-col sm:mt-[26px] mt-[35px]">
+          <div className="lg:gap-y-[16px] gap-y-[11px] w-full  flex flex-col sm:mt-[26px] mt-[35px]">
             <div className="flex w-full">
               <div className="flex  lg:w-[26px] items-center w-[21px] mr-[10.8px]">
                 <img src="correct.png" className="w-full" />
@@ -222,11 +222,11 @@ const SectionTwo: React.FC = () => {
                 Diverse Industry Specialists
               </p>
             </div>
-            <div className="flex lg:gap-[16px] gap-[11px]">
+            <div className="flex  w-full">
               <div className="flex items-center ] lg:w-[26px] w-[21px]  mr-[10.8px]">
                 <img src="correct.png" className="w-full" />
               </div>
-              <p className="text-black lg:text-[18px] text-nowrap text-[16px] font-[500]">
+              <p className="text-black lg:text-[18px] p text-[16px] font-[500]">
                 On-Demand Talent
               </p>
             </div>
