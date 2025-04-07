@@ -1,12 +1,27 @@
+"use client";
+import React, { useState, useEffect } from "react";
 import PlayIcon from "./PlayIcon";
 import SearchBar from "./SearchBar";
 
 const HeroSection: React.FC = () => {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/hero-section-bc.jpeg";
+    img.onload = () => {
+      setLoaded(true);
+    };
+  }, []);
   return (
     <div className="relative flex">
       <div className="w-full min-h-[285px] flex flex-col   aspect-[1440/720] lg:rounded-[50px] sm:rounded-[41px] rounded-[17.9px] items-center justify-end relative  lg:pl-[40px]  md:pl-[33.37px] pl-[24px] lg:pt-[40px] md:pt-[33.45px] pt-[27px] md:pr-[47.5px] lg:pr-[57px] pr-[24px] overflow-hidden">
+        {!loaded && (
+          <div className="absolute inset-0 z-20 flex animate-pulse items-center justify-center bg-gray-200" />
+        )}
         <div
-          className="absolute sm:mask-size-[100%_100%] mask-size-[120%_100%] inset-0 z-[0] top-1/2 left-1/2 transform -translate-x-1/2  -translate-y-1/2 mask-[url(/hero_background_clip.svg)] w-full h-full"
+          className={`absolute sm:mask-size-[100%_100%] mask-size-[120%_100%] inset-0 z-[0] top-1/2 left-1/2 transform -translate-x-1/2 ${
+            loaded ? "opacity-100" : "opacity-0"
+          } -translate-y-1/2 mask-[url(/hero_background_clip.svg)] w-full h-full`}
           style={{
             backgroundImage: "url('hero-section-bc.jpeg')",
             backgroundSize: "cover",
