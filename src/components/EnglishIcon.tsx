@@ -1,5 +1,3 @@
-"use client";
-
 const English = ({ className }: { className?: string }) => {
   return (
     <div className={className}>

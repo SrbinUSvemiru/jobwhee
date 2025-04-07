@@ -1,5 +1,3 @@
-"use client";
-
 const GreeceIcon = ({ className }: { className?: string }) => {
   return (
     <div className={className}>

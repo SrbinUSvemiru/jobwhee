@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import ArrowDownIcon from "./ArrowDownIcon";
 
@@ -19,17 +18,21 @@ type DropdownProps = {
   hasLine?: boolean;
   descriptionClass?: string;
   itemsClass?: string;
+  arrowClassName?: string;
+  isSearchBar?: boolean;
 };
 
 const Dropdown: React.FC<DropdownProps> = ({
   options,
   btnClassName,
+  arrowClassName,
   className,
   iconEnabled = true,
   arrowFill = "white",
   hasLine = true,
   descriptionClass = "",
   itemsClass = "",
+  isSearchBar = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(options[0]);
@@ -37,33 +40,45 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div className="relative">
       <button
-        className={`flex items-center  w-fit p-1.5 ${btnClassName}`}
+        className={`flex items-center relative ${btnClassName} ${
+          isSearchBar && !isOpen ? "bg-transparent border-0" : ""
+        }`}
         onClick={() => setIsOpen(!isOpen)}
       >
+        {isSearchBar && !isOpen ? (
+          <div className="absolute h-[22.5px] w-[1px] left-[0px]   -translate-x-1/2  bg-[#737373] "></div>
+        ) : null}
         {selected?.icon && iconEnabled ? (
           <span className="mr-[10.5px]">{selected?.icon}</span>
         ) : null}
         <span className="font-[500]">{selected?.value}</span>
-        <span className="w-[18px] flex justify-center">
-          <ArrowDownIcon fill={arrowFill} />
+        <span className=" flex justify-center">
+          {isOpen ? (
+            <ArrowDownIcon
+              className={`rotate-180 ${arrowClassName}`}
+              fill={arrowFill}
+            />
+          ) : (
+            <ArrowDownIcon className={arrowClassName} fill={arrowFill} />
+          )}
         </span>
       </button>
 
       {isOpen && (
         <div
-          className={`absolute mt-2 z-50 left-1/2 -translate-x-1/2 rounded-[14px] px-[6px]  w-fit ${className}`}
+          className={`absolute  z-50  rounded-[14px] px-[6px]  ${className}`}
         >
           {options?.map((option: Option, index) => (
-            <>
+            <div key={option.label.value}>
               <div
                 key={option.label.value}
-                className={`flex items-center   gap-x-[8.5px] pr-[34px]  cursor-pointer ${itemsClass}`}
+                className={`flex items-start  gap-x-[8.5px]   cursor-pointer ${itemsClass}`}
                 onClick={() => {
                   setSelected(option);
                   setIsOpen(false);
                 }}
               >
-                <span className="flex justify-center h-full items-start">
+                <span className="flex justify-center h-fit items-start">
                   {option.icon}
                 </span>
                 <div className="text-[14px]">
@@ -78,7 +93,7 @@ const Dropdown: React.FC<DropdownProps> = ({
               {index < options.length - 1 && hasLine ? (
                 <div className="h-[1px] mx-auto bg-gray-600  w-[95%]" />
               ) : null}
-            </>
+            </div>
           ))}
         </div>
       )}
